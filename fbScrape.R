@@ -1,5 +1,5 @@
 library(Rfacebook)
-myAuth <- fbOAuth(app_id = "119980435291125", app_secret = "144e0f46eb76ac16ae5884ea5a8e2b04")
+myAuth <- fbOAuth(app_id = "", app_secret = "")
 save(myAuth, file = "myAuth")
 
 getpagedata <- getPage(367963843082, token = myAuth, since = "2017-01-01", feed = TRUE, reactions = TRUE)
