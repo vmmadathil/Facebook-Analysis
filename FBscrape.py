@@ -12,7 +12,7 @@ BASE_URL = "https://graph.facebook.com/v2.10/"
 COLUMNS = ["created_time", "message", "from", "id"]
 
 # Scrape a page for posts
-def scrapeFeedComments(data,page_id,access_token):
+def scrapePage(data,page_id,access_token):
     # Start scraping the page
     print("{} : Scraping Posts From Page {} ...\n".format(datetime.datetime.now(),page_id))
 
@@ -21,13 +21,14 @@ def scrapeFeedComments(data,page_id,access_token):
     getPosts = requests.get(BASE_URL + page_id + "/posts" + parameters)
     posts = getPosts.json()['data']
 
-    # For each post get the comments and subocomments
+    # For each post get the comments
     count = 0
     for post in posts:
-        data  = scrapeCommentsFromPosts(data,post,access_token)
+        data  = getCommentsFromPost(data,post,access_token)
     return data
 
-def scrapeCommentsFromPosts(data,post,access_token):
+# Get the comments from a specific post 
+def getCommentsFromPost(data,post,access_token):
     # GET request
     parameters = "?access_token=" + access_token + "&limit=" + str(LIMIT)
     getComments = requests.get(BASE_URL + post['id'] + "/comments" + parameters)
@@ -46,7 +47,7 @@ if __name__ == '__main__':
     page_id = "367963843082"
 
     # Start the scraping
-    data = scrapeFeedComments(data,page_id, access_token)
+    data = scrapePage(data,page_id, access_token)
     listOfNames = []
     listOfNameIDs = []
     for entry in data['from']:
