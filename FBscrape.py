@@ -60,6 +60,7 @@ if __name__ == '__main__':
 
     # From here use awk to re-order columns or rename column names
     # Use bash to sort or get unique names etc
+    # Send the pandas data frame to the clustering part of the code
 
     # Export the table
     print("Completed scraping. Exporting DataFrame...")
